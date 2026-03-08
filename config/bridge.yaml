@@ -1,0 +1,13 @@
+# カメラ映像: Gazebo -> ROS
+- ros_topic_name: "/camera_sensor"
+  gz_topic_name: "/camera_sensor"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
+  direction: GZ_TO_ROS
+
+# カメラ情報: Gazebo -> ROS
+- ros_topic_name: "/camera_info"
+  gz_topic_name: "/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "ignition.msgs.CameraInfo"
+  direction: GZ_TO_ROS

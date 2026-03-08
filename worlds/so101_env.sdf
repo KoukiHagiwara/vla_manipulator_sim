@@ -8,6 +8,10 @@
     <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics"></plugin>
     <plugin filename="ignition-gazebo-user-commands-system" name="ignition::gazebo::systems::UserCommands"></plugin>
     <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster"></plugin>
+    
+    <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
 
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
@@ -46,7 +50,7 @@
     </model>
 
     <model name="red_ball">
-      <pose>0.33 0.3 0.533 0 0 0</pose>
+      <pose>0.33 0 0.533 0 0 0</pose>
       <link name="link">
         <inertial>
           <mass>0.030</mass>
@@ -90,5 +94,78 @@
         </visual>
       </link>
     </model>
+
+    <model name="camera_stand">
+      <static>true</static> <pose>0.15 0.35 0.52 -1.57 0 -3.14</pose>
+      <link name='camera_stand_link'>
+        <inertial>
+            <mass>1</mass>
+            <inertia>
+                <ixx>0.043333</ixx>
+                <ixy>0</ixy>
+                <ixz>0</ixz>
+                <iyy>0.043333</iyy>
+                <iyz>0</iyz>
+                <izz>0.08</izz>
+            </inertia>
+        </inertial>
+        <collision name='collision'>
+            <geometry>
+                <mesh>
+                    <scale>0.001 0.001 0.001</scale>
+                    <uri>camera_case.stl</uri>
+                </mesh>
+            </geometry>
+        </collision>
+        <visual name='visual'>
+            <geometry>
+                <mesh>
+                    <scale>0.001 0.001 0.001</scale>
+                    <uri>camera_case.stl</uri>
+                </mesh>
+            </geometry>
+            <material>
+              <ambient>0.3 0.3 0.3 1</ambient>
+              <diffuse>0.3 0.3 0.3 1</diffuse>
+            </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="camera">
+      <static>true</static>
+      <pose>0.15 0.35 1.1 0 0.75 -1.5708</pose>
+      <link name="camera_link">
+        <visual name="camera_visual">
+          <geometry>
+            <box><size>0.063 0.07 0.03</size></box>
+          </geometry>
+          <material>
+            <diffuse>0 0 1 1</diffuse>
+            <ambient>0 0 1 1</ambient>
+          </material>
+        </visual>
+        <sensor name="camera_sensor" type="camera">
+          <camera>
+            <camera_info_topic>camera_info</camera_info_topic>        
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+          </camera>
+          <topic>/camera_sensor</topic>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>true</visualize> 
+        </sensor>
+      </link>
+    </model>
+
   </world>
 </sdf>

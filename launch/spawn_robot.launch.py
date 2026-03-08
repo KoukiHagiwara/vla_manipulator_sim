@@ -15,6 +15,8 @@ def generate_launch_description():
 
     #moveitとの連携
     moveit_config_dir = get_package_share_directory('vla_manipulator_moveit_config')
+    
+
 
     # URDFファイルのパス
     urdf_file = os.path.join(pkg_vla_manipulator, 'models', 'robot.urdf')
@@ -84,6 +86,20 @@ def generate_launch_description():
         arguments=['/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock'],
         output='screen'
     )
+
+    # カメラ映像等のブリッジ
+    bridge_params = os.path.join(pkg_vla_manipulator_sim, 'config', 'bridge.yaml')
+    ros_gz_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        arguments=[
+            '--ros-args',
+            '-p',
+            f'config_file:={bridge_params}',
+        ],
+        output='screen'
+    )
+
     # 🌟 追加2：コントローラを起動する司令塔たち
     jsb_spawner = Node(
         package="controller_manager",
@@ -126,6 +142,7 @@ def generate_launch_description():
         robot_state_publisher,
         spawn,
         clock_bridge,
+        ros_gz_bridge,
         jsb_spawner,
         arm_spawner,
         gripper_spawner,
