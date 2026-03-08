@@ -49,42 +49,34 @@
       </link>
     </model>
 
-    <model name="red_ball">
-      <pose>0.33 0 0.533 0 0 0</pose>
+    
+    <model name="red_block">
+      <pose>0.15 0 0.52 0 0 0</pose>
       <link name="link">
         <inertial>
-          <mass>0.030</mass>
+          <mass>0.05</mass>
           <inertia>
-            <ixx>0.000013068</ixx>
-            <ixy>0.0</ixy>
-            <ixz>0.0</ixz>
-            <iyy>0.000013068</iyy>
-            <iyz>0.0</iyz>
-            <izz>0.000013068</izz>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
           </inertia>
         </inertial>
         <collision name="collision">
           <geometry>
-            <sphere><radius>0.033</radius></sphere>
+            <box><size>0.04 0.04 0.04</size></box>
           </geometry>
           <surface>
             <friction>
               <ode>
-                <mu>0.01</mu>
-                <mu2>0.01</mu2>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
               </ode>
             </friction>
-            <contact>
-              <ode>
-                <kp>100000</kp>
-                <kd>1</kd>
-              </ode>
-            </contact>
           </surface>
         </collision>
         <visual name="visual">
           <geometry>
-            <sphere><radius>0.033</radius></sphere>
+            <box><size>0.04 0.04 0.04</size></box>
           </geometry>
           <material>
             <ambient>1 0 0 1</ambient>
